@@ -1,0 +1,33 @@
+/***	Mittera Breakfast stylesheet ***/
+
+/*html5 display rule (for older browsers to display these html5 tags as block level elements)*/
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {display:block}
+
+/* setting initial margins and paddings to zero for [almost] all elements (doesn't include form elements) */
+a, abbr, acronym, address, article, aside, b, blockquote, body, br, canvas, caption, dd, details, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, img, label, legend, li, link, menu, nav, ol, p, pre, section, small, span, strong, summary table, td, th, tr, u, ul {margin:0; padding:0; border:0}
+
+body {background:url('../_img/bg.jpg') #eee; font-size:11pt; text-align:center; font-family:"Book Antiqua", times, serif; margin:auto}
+p {text-align:left; margin-bottom:1em}
+h1 {display:none}
+h2 {font-size:24pt; color:#000; text-align:center; color:maroon; font-weight:normal}
+h3 {font-size:130%; color:#a13; font-weight:normal}
+ul {list-style: none; margin:auto}
+ul li {display: block; float:left}
+label img {display:block; margin:auto}
+    
+#breakfastForm {color:#000; margin:auto; position:relative; bottom:-30px; width:550px; border:1px black solid; background:rgba(221, 221, 221, 0.6); border-radius:20px; padding:10px 20px}
+#breakfastForm table {width:90%}
+#breakfastForm th {text-align:right; padding-right:10px; vertical-align:text-top; width:20%}
+#breakfastForm input, #contact #form textarea {width:100%; border-radius:10px}
+.subOption {display: none; width: 450px; height: 96px; border: maroon solid 1px}
+.subOption li {width:25%}
+#OmeletSubOption {height:150px}
+#OmeletSubOption li {width:149px}
+#specialEggs {position: relative; left: 240px; top: -75px; width: 90px}
+textarea[name='comments'] {width:300px}
+
+/***	Mittera Breakfast stylesheet ***/
+
+
+
+

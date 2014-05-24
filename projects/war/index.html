@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <title>War Game</title>
+  <meta name="description" content="" />
+  <meta name="author" content="David Moritz" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="stylesheet" href='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'>
+  <link rel='stylesheet' type='text/less' href='war.less' />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js'></script>
+</head>
+
+<body ng-controller="warCtrl">
+	<div class='container'>
+		<header class='hide'>
+			<h1>War!</h1>
+		</header>
+		<div class='jumbotron'>
+			<h2>War!</h2>
+		</div>
+		<div class='row'>
+			<div class='col-sm-6'>
+				<div class='btn btn-primary' ng-click="buildDeck()">Deal the Cards!</div>
+					<ul ng-repeat="card in deck.cards">
+						<li class="card-big {{card.suit}} {{card.value}}"></li>
+					</ul>
+					<div class='btn btn-primary' ng-click="play()">Play</div>
+					<h3>Battle Cards</h3>
+					<ul id='battleCards' class='cardList' ng-repeat="card in battle">
+						<li class="card-big {{card.suit}}-lg {{card.value}}-lg">{{card.owner.name}}'s card</li>
+					</ul>
+					<h3>Spoils</h3>
+					<ul class='cardList' ng-repeat="card in inPlay">
+						<li class="card-small {{card.suit}}-sm {{card.value}}-sm"></li>
+					</ul>
+			</div>
+			<div class='col-sm-6'>
+				<h3>Add New Player</h3>
+				<form id='addPlayerForm' ng-submit="addPlayer()">
+					<input type='text' ng-model='playerName' placeholder="Name">
+					<input class='btn btn-primary' type='submit' value='Add' ng-disabled="start">
+				</form>
+				<ul ng-repeat="player in allPlayers">
+					<li>{{player.name}}
+						<ul ng-repeat="card in player.deck">
+							<li>{{card.value}} of {{card.suit}}</li>
+						</ul>
+					</li>
+				</ul>
+				Cards
+				<ul ng-repeat="card in allCards">
+					<li class="card-big {{card.suit}} {{card.value}}"></li>
+				</ul>
+			</div>
+		</div>
+		<footer>
+			<p>Created by David Moritz</p>
+			<p><a href="..">Go back to the Projects</a></p>
+			<div style='display:none'>
+				<!-- Pre-load all the images -->
+				<img src='_inc/cards.png'>
+				<img src='_inc/cards_small.png'>
+				<img src='_inc/cards_big.png'>
+			</div>
+		</footer>
+	</div>
+	<script type="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+	<script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+	<script src='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
+	<script src='war.js'></script>
+</body>
+</html>

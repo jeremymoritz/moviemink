@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <title>Yahtzee Game</title>
+  <meta name="description" content="" />
+  <meta name="author" content="David Moritz" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="stylesheet" href='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'>
+  <link rel='stylesheet' type='text/css' href='yahtzee.css' />
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js'></script>
+</head>
+
+<body ng-controller="ytzCtrl">
+	<header class='hide'>
+		<h1>Yahtzee!</h1>
+	</header>
+	<div class='container'>
+		<div class='jumbotron'>
+			<img class='yTitle' src='_img/yahtzee_logo.png'>
+			<h2>Current Player: {{player.name}}</h2>
+		</div>
+		<div id="dice">
+			<div class="center row">
+				<div class="col-xs-2 col-xs-offset-1" id="d0" ng-click="player.holdThis(0);">
+					<img class="img img-responsive" src="_img/d5.png" alt="1">
+					<div class='btn btn-info'>Hold</div>
+				</div>
+				<div class="col-xs-2" id="d1" ng-click="player.holdThis(1);">
+					<img class="img img-responsive" src="_img/d5.png" alt="2">
+					<div class='btn btn-info'>Hold</div>
+				</div>
+				<div class="col-xs-2" id="d2" ng-click="player.holdThis(2);">
+					<img class="img img-responsive" src="_img/d5.png" alt="3">
+					<div class='btn btn-info'>Hold</div>			
+				</div>
+				<div class="col-xs-2" id="d3" ng-click="player.holdThis(3);">
+					<img class="img img-responsive" src="_img/d5.png" alt="4">
+					<div class='btn btn-info'>Hold</div>
+				</div>
+				<div class="col-xs-2" id="d4" ng-click="player.holdThis(4);">
+					<img class="img img-responsive" src="_img/d5.png" alt="5">
+					<div class='btn btn-info'>Hold</div>
+				</div>
+			</div>
+		</div>
+		<div id='playerTable' class='row'>
+			<div class='col-sm-6'>
+				<div class='row'>
+					<div class='big btn btn-success col-xs-4 col-xs-offset-1' ng-click='player.makeNewDice();'><i>New Roll!</i></div>
+					<div class='big btn btn-danger col-xs-4 col-xs-offset-2' ng-click='player.rollDice();'><b>Roll Dice!</b></div>
+				</div>
+				<div id='roll'></div>
+				<table class='table table-condensed table-bordered scoreSheet'>
+					<tr><td><div class='btn btn-warning' ng-click='ytzUpper(1, "ones");'>Ones</div></td>
+						<td class='display' id='ones'>{{player.score.ones}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzUpper(2, "twos");'>Twos</div></td>
+						<td class='display' id='twos'>{{player.score.twos}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzUpper(3, "threes");'>Threes</div></td>
+						<td class='display' id='threes'>{{player.score.threes}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzUpper(4, "fours");'>Fours</div></td>
+						<td class='display' id='fours'>{{player.score.fours}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzUpper(5, "fives");'>Fives</div></td>
+						<td class='display' id='fives'>{{player.score.fives}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzUpper(6, "sixes");'>Sixes</div></td>
+						<td class='display'id='sixes'>{{player.score.sixes}}</td></tr>
+					<tr><td><p> Upper Bonus?</p></td>
+						<td id='bonus'>{{player.score.bonus}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzThreeOK();'>Three Of a Kind</div></td>
+						<td class='display' id='threeOK'>{{player.score.threeOK}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzFourOK();'>Four Of a Kind</div></td>
+						<td class='display' id='fourOK'>{{player.score.fourOK}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzFullHouse();'>Full House</div></td>
+						<td class='display' id='fullHouse'>{{player.score.fullHouse}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzSmallStraight();'>Small Straight</div></td>
+						<td class='display' id='smallStraight'>{{player.score.smallStraight}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzLargeStraight();'>Large Straight</div></td>
+						<td class='display' id='largeStraight'>{{player.score.largeStraight}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzChance();'>Chance</div></td>
+						<td class='display' id='chance'>{{player.score.chance}}</td></tr>
+					<tr><td><div class='btn btn-warning' ng-click='ytzYahtzee();'>Yahtzee</div></td>
+						<td class='display' id='yahtzee'>{{player.score.yahtzee}}</td></tr>
+					<tr style='display:{{player.score.yahtzee > 0 ? "" : "none"}}'><td><div class='btn btn-warning' ng-click='ytzBonusYahtzee();'>Bonus Yahtzee</div></td>
+						<td class='display' id='bonusYahtzee'>{{player.score.bonusYahtzee}}</td></tr>
+					<tr><td><p>Upper score</p></td>
+						<td id='upperScore'>{{player.upper + player.score.bonus}}</td></tr>
+					<tr><td><p>Lower score</p></td>
+						<td id='lowerScore'>{{player.lower}}</td></tr>
+					<tr><td><p><em>Total Score</em></p></td>
+						<td id='totalScore' class='score'>{{player.total}}</td></tr>
+				</table>
+			</div>
+			<div class='col-sm-6'>
+				<h2><strong>Switch Players</strong> by clicking the player you want</h2>
+				<h4>(Between turns of course)</h4>
+				<ul class="playerPick">
+					<li ng-repeat="players in allPlayers">
+					  <label><input type="radio" value={{players.name}} ng-model="$parent.changePlayer" ng-disabled="!player.mark">
+					  {{players.name}}</label>
+					</li>
+				</ul>
+				<form id='addPlayerForm' ng-submit="addPlayer()">
+					<input type="text" ng-model="playerName"  size="30" placeholder="add new player here">
+					<input class="btn-primary" type="submit" value="add" ng-disabled="!player.mark">
+				</form>
+				<h3>Score Table</h3>
+			    <div>
+			    	<table class='table table-condensed table-bordered table-striped'>
+			    		<thead>
+			    			<tr><th>Name</th><th>Turns</th><th>Score</th></tr>
+			    		</thead>
+			    		<tbody id='scoreTable'>
+			    			<tr ng-repeat="players in allPlayers">
+			    				<td>{{players.name}}</td><td>{{players.turns}}</td><td>{{players.total}}</td>
+			    			</tr>
+			    		</tbody>
+			    	</table>
+			    </div>
+			</div>
+		</div>
+		<footer>
+			<p>Created by David Moritz</p>
+			<p><a href="..">Go back to the Projects</a></p>
+			<div style='display:none'>  
+				<!-- Pre-load all the images -->
+				<img src='_img/d5.png'>
+				<img src='_img/d1_hold.png'>
+				<img src='_img/d1.png'>
+				<img src='_img/d2_hold.png'>
+				<img src='_img/d2.png'>
+				<img src='_img/d3_hold.png'>
+				<img src='_img/d3.png'>
+				<img src='_img/d4_hold.png'>
+				<img src='_img/d4.png'>
+				<img src='_img/d5_hold.png'>
+				<img src='_img/d6.png'>
+				<img src='_img/d6_hold.png'>
+				<img src='_img/yahtzee_logo.png'>
+			</div>
+			<script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+			<script src='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
+			<script src='yahtzee.js'></script>
+		</footer>
+	</div>
+</body>
+</html>

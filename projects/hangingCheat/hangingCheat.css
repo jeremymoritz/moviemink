@@ -1,0 +1,94 @@
+/***	Hanging With Cheaters stylesheet ***/
+
+/*html5 display rule (for older browsers to display these html5 tags as block level elements)*/
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, computerai, topperai, strikesai, smallstrike, betweenai, spacesai, smallspace, belowai, strikeholder, lettersai, iphone, half, toybox {display:block}
+
+/* setting initial margins and paddings to zero for [almost] all elements (doesn't include form elements) */
+a, abbr, acronym, address, article, aside, b, blockquote, body, br, canvas, caption, dd, details, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, img, label, legend, li, link, menu, nav, ol, p, pre, section, small, span, strong, summary table, td, th, tr, u, ul {margin:0; padding:0; border:0}
+
+	/* Hanging styles */
+body {background-image:url('_img/bg2.jpg'); background-repeat:no-repeat; background-position:top ;background-color:#e1b085; font-family: Helvetica, Arial, "Lucida Grande", sans-serif}
+#container {width:100%; height:100%}
+#content {width:650px; margin:auto}
+.title {width:650px; margin:auto}
+.title img {width:600px}
+.rightImg {float:right; bottom:40px}
+b {font-size:200%; font-weight:bold}
+i {font-size:150%}
+em {font-size:130%}
+p {margin:1em}
+table {margin:1em}
+td {border:1px solid black}
+tr:nth-child(2n) {background-color:rgba(55,55,55,0.25)}
+.wordTable {font-family: 'Roboto', sans-serif}
+#createForm {display:none}
+#testForm {display:none}
+#playForm {display:none}
+#percentage{display:none; background-color: rgba(204, 218, 127, 0.65);}
+#wordValuesInput {display:none}
+.toppers {padding-left:1.8em}
+
+/* Placeholder Testing */
+.half {-webkit-transform: scale(0.6);
+		-moz-transform: scale(0.6);
+		-o-transform: scale(0.6);
+		-ms-transform: scale(0.6);}
+iphone {width:453px; height:866px; background-image:url('_img/toybox/iphone.png'); position:absolute; top:0px; left: 45%}
+computerai {width:388px; height:564px; background-color:#841719; font-family: 'Roboto', sans-serif; font-size:235%; color:#4e1c00; position:relative; top:141px; left:36px}
+topperai {width:388px; height:259px; background-image:url('_img/toybox/aboveStrike.jpg')}
+strikesai {width:388px; height:18px; background-image:url('_img/toybox/strike_bg.png')}
+strikeholder {width:144px; height:18px; background-color:#f7fbef; position:relative; left:22px}
+strikeholder li {display:block; list-style:none; width:18px; height:18px; background-image:url('_img/toybox/empty.png'); float:right}
+.strike {background-image:url('_img/toybox/strike.png')}
+betweenai {width:388px; height:13px; background-image:url('_img/toybox/betweenStrikeSpace.jpg')}
+spacesai {width:388px; height:52px}
+.spaces0 {background-image:url('_img/toybox/0_spaces.jpg')}
+.spaces4 {background-image:url('_img/toybox/4_spaces.jpg')}
+.spaces5 {background-image:url('_img/toybox/5_spaces.jpg')}
+.spaces6 {background-image:url('_img/toybox/6_spaces.jpg')}
+.spaces7 {background-image:url('_img/toybox/7_spaces.jpg')}
+.spaces8 {background-image:url('_img/toybox/8_spaces.jpg')}
+smallspace {width:48px; height:52px; line-height:52px; text-align:center; float:left; vertical-align:middle}
+belowai {width:388px; height:16px; background-image:url('_img/toybox/below_spaces.jpg')}
+lettersai table {margin:0 .5em 0 .2em; width:96%}
+lettersai td {border:none; background-image:url('_img/toybox/blank_letter.png'); height:49px; width:50px; line-height:49px; text-align:center; vertical-align:middle}
+.red {background-image:url('_img/toybox/blank_red.png')}
+.green {background-image:url('_img/toybox/blank_green.png')}
+lettersai tr:nth-child(4) td:last-child {background-image:url('_img/toybox/resign.png'); background-position:-12px -1px}
+
+#placeLetters tbody {background-color:#841719; width:388px}
+#placeLetters tr:nth-child(1) {background-image:url('_img/toybox/aboveStrike.jpg'); height:259px; width:388px}
+#placeLetters tr:nth-child(6) td {background-image:url('_img/toybox/blank_letter.png'); height:49px; width:50px}
+
+	/* COMPUTER AI Styles */
+.compAI {width:388px; height:564px; background-image:url('_img/ai_full.jpg'); position:absolute; top:150px; right:30px}
+#showMore {display:none}
+div.compAI {display:none} 
+.strikeAI {position:relative; top:258px; left:16px}
+.strikeAI img {margin-right:-159px}
+#startAI {position:relative; top:266px}
+#lettersAI {position:relative; top:279px; left:12px}
+#lettersAI table {margin-top:2px; margin-left:2px}
+#lettersTable td {border:none; width:50px; height:49px; padding:0}
+#lettersTable img {margin:-4px}
+#startPlayAI {position:relative; top:266px}
+#lettersPlayAI {position:relative; top:279px; left:12px}
+#lettersPlayAI table {margin-top:2px; margin-left:2px}
+#lettersPlayTable td {border:none; width:50px; height:49px; padding:0; cursor: pointer}
+#lettersPlayTable img {margin:-4px}
+#correctGuessAI {position:absolute; top:291px; margin:0}
+#correctGuessAI table {margin:0}
+#correctGuessAI td {border:none}
+#correctGuessAI img {margin:-2px}
+
+	/* STYLE CLASSES (ALL PAGES) */
+.center {text-align:center}
+.clear {clear:both}
+.hidden {display:none} 
+.left {float:left}
+.right {float:right}
+.enlarge {cursor:pointer}
+.overlarge {display:none; position:absolute}
+.hider {float:right; clear:right}
+.hider:hover {cursor:pointer}
+toybox {display:none}

@@ -1,0 +1,32 @@
+/***	Color-Changing Table stylesheet ***/
+
+	/* Colors styles */
+caption {font-weight:bold}
+td {padding: 1em}
+.colorTable tr:nth-child(5n+2) {background: red}
+.colorTable tr:nth-child(5n+3) {background: yellow}
+.colorTable tr:nth-child(5n+4) {background: green; color: white}
+.colorTable tr:nth-child(5n+5) {background: blue; color: white}
+.colorTable tr:nth-child(5n+6) {background: brown; color:white}
+.colorTable tr:nth-child(1) {background: none}
+
+.custom0 {background: red}
+.custom1 {background: yellow}
+.custom2 {background: green; color: white}
+.custom3 {background: blue; color: white}
+.custom4 {background: brown; color: white}
+
+.tableOne {float:left; margin-right:2em}
+.tableTwo {float:left}
+
+	/* STYLE CLASSES (ALL PAGES) */
+h1 {display:none}
+.center {text-align:center}
+.clear {clear:both}
+.hidden {display:none} 
+.left {float:left}
+.right {float:right}
+.enlarge {cursor:pointer}
+.overlarge {display:none; position:absolute}
+.hider {float:right; clear:right}
+.hider:hover {cursor:pointer}

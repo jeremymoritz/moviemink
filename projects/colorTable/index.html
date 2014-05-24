@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Color Changing Table</title>
+  <meta name="description" content="" />
+  <meta name="author" content="Brian" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel='stylesheet' type='text/css' href='colors.css' />
+</head>
+
+<body>
+  <h2> Here is the amazing Color Changing Table! </h2>
+  <p> Go ahead, try it out for yourself.</p>
+  <p>TASK: Create a table with 5 rows of alternating colors (use a CSS3 selector for this).  Each row has a "remove" button on it and when this button is clicked, the row is removed (the colors of the existing rows should update accordingly).  Below the table, there should be an "Add Row" button that adds a row to the bottom of the table (properly colored).</p>
+  <div>
+  	<table class='tableOne'>
+  		<caption>
+  			The Color Changing Table
+  		</caption>
+  		<tfoot>
+  			<tr><td colspan='2'><button onclick='addRow()'>Add Row!</button></td></tr>
+  		</tfoot>
+  		<tbody id='colorBody' class='colorTable'>
+	  		<tr class='hidden'><td>.</td><td>.</td></tr>
+	  	</tbody>
+  	</table>
+  	<table class='tableTwo'>
+  		<caption>
+  			The Custom Color Table
+  		</caption>
+  		<tfoot>
+  			<tr><td colspan='2'><button onclick='addCustomRow()'>Add Row!</button></td></tr>
+  		</tfoot>
+  		<tbody id='customBody'>
+	  	</tbody>
+  	</table>
+  	Problem 12: <input type='number' name='num12' placeholder='500'><button onclick='findQuickTriangleDivisible(); return false;'>Solve!</button><b id='answer12'>Answer</b><br>
+      	<p>"The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17. <br><br>
+      		Find the sum of all the primes below 2,000,000."</p>
+  </div>
+  <footer class='clear'>
+     <p>Created by David Moritz</p>
+	 <p><a href="..">Go back to the Projects</a></p>
+     
+  	 <script src='colors.js'></script>
+  	 <script src='../euler/scratch/Euler12.js'></script>
+  </footer>
+</body>
+</html>

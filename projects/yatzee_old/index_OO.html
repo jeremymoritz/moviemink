@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title>Yahtzee Game</title>
+  <meta name="description" content="" />
+  <meta name="author" content="David Moritz" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel='stylesheet' type='text/css' href='yahtzee.css' />
+</head>
+
+<body>
+  <div>
+    <header>
+      <h1>Yahtzee!</h1>
+    </header>
+    <div>
+    	<button onclick='newPlayer()'>New Player</button>
+    	<button onclick='switchPlayer()'>Switch Players</button>
+    </div>
+    <div>
+    	<img class='yTitle' src='_img/yahtzee_logo.png'>
+      <table>
+      	<tbody id='dice'> </tbody>
+      </table>
+      <table>
+      	<tr><td class='big'><button onclick='player.makeNewDice();'><i>New Roll!</i></button></td><td class='big'><button onclick='player.rollDice();'><b>Roll Dice!</b></button></td><td id='roll'> </td></tr>
+      	<tr><td><button onclick='ytzUpper(1, "ones");'>Ones</button></td><td class='display' id='ones'>.</td></tr>
+      	<tr><td><button onclick='ytzUpper(2, "twos");'>Twos</button></td><td class='display' id='twos'>.</td></tr>
+      	<tr><td><button onclick='ytzUpper(3, "threes");'>Threes</button></td><td class='display' id='threes'>.</td></tr>
+      	<tr><td><button onclick='ytzUpper(4, "fours");'>Fours</button></td><td class='display' id='fours'>.</td></tr>
+      	<tr><td><button onclick='ytzUpper(5, "fives");'>Fives</button></td><td class='display' id='fives'>.</td></tr>
+      	<tr><td><button onclick='ytzUpper(6, "sixes");'>Sixes</button></td><td class='display'id='sixes'>.</td></tr>
+      	<tr><td><p> Upper Bonus?</p></td><td id='bonus'>.</td></tr>
+      	<tr><td><button onclick='ytzThreeOK();'>Three Of a Kind</button></td><td class='display' id='threeOK'>.</td></tr>
+      	<tr><td><button onclick='ytzFourOK();'>Four Of a Kind</button></td><td class='display' id='fourOK'>.</td></tr>
+      	<tr><td><button onclick='ytzFullHouse();'>Full House</button></td><td class='display' id='fullHouse'>.</td></tr>
+      	<tr><td><button onclick='ytzSmallStraight();'>Small Straight</button></td><td class='display' id='smallStraight'>.</td></tr>
+      	<tr><td><button onclick='ytzLargeStraight();'>Large Straight</button></td><td class='display' id='largeStraight'>.</td></tr>
+      	<tr><td><button onclick='ytzChance();'>Chance</button></td><td class='display' id='chance'>.</td></tr>
+      	<tr><td><button onclick='ytzYahtzee();'>Yahtzee</button></td><td class='display' id='yahtzee'>.</td></tr>
+      	<tr><td><p>Upper score</p></td><td id='upperScore'>.</td></tr>
+      	<tr><td><p>Lower score</p></td><td id='lowerScore'>.</td></tr>
+      	<tr><td><p><em>Total Score</em></p></td><td id='totalScore' class='score'>.</td></tr>
+      </table>
+    </div>
+    <div>
+    	The current player's name is: <span id='playerName'>.</span>
+    </div>
+    <h3>Score Table</h3>
+    <div>
+    	<table>
+    		<thead>
+    			<tr><th>Name</th><th>Turns</th><th>Score</th></tr>
+    		</thead>
+    		<tbody id='scoreTable'>
+    		</tbody>
+    	</table>
+    </div>
+
+    <footer>
+     <p>Created by David Moritz</p>
+     <p><a href="..">Go back to the Projects</a></p>
+     <div style='display:none'>  
+     <!-- Pre-load all the images -->
+		<img src='_img/d5.png'>
+     	<img src='_img/d1_hold.png'>
+		<img src='_img/d1.png'>
+		<img src='_img/d2_hold.png'>
+		<img src='_img/d2.png'>
+		<img src='_img/d3_hold.png'>
+		<img src='_img/d3.png'>
+		<img src='_img/d4_hold.png'>
+		<img src='_img/d4.png'>
+		<img src='_img/d5_hold.png'>
+		<img src='_img/d6.png'>
+		<img src='_img/d6_hold.png'>
+		<img src='_img/yahtzee_logo.png'>
+     </div>
+     <script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+	 <script src='yahtzee_OO.js'></script>
+     <script>initialDice();</script>
+    </footer>
+  </div>
+</body>
+</html>

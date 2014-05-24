@@ -1,0 +1,19 @@
+/***	Ajax stylesheet ***/
+
+/*html5 display rule (for older browsers to display these html5 tags as block level elements)*/
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {display:block}
+
+/* setting initial margins and paddings to zero for [almost] all elements (doesn't include form elements) */
+a, abbr, acronym, address, article, aside, b, blockquote, body, br, canvas, caption, dd, details, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, img, label, legend, li, link, menu, nav, ol, p, pre, section, small, span, strong, summary table, td, th, tr, u, ul {margin:0; padding:0; border:0}
+
+	/* Ajax styles */
+
+	/* STYLE CLASSES (ALL PAGES) */
+.clear {clear:both}
+.hidden {display:none} 
+.left {float:left}
+.right {float:right}
+.enlarge {cursor:pointer}
+.overlarge {display:none; position:absolute}
+.hider {float:right; clear:right}
+.hider:hover {cursor:pointer}

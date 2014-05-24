@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='description' content="It's Bingo Time!">
+	<meta name='keywords' content='bingo, david moritz, moritz, david'>
+	<title>It's Bingo Time!</title>
+	<link rel='stylesheet' type='text/css' href='bingo.css' />
+	<!--[if lt IE 9]>
+		<script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script>
+		<script src='http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js'></script>
+	<![endif]-->
+	<script src='bingo.js'></script>
+</head>
+<body>
+	<header>
+		<h1>Bingo</h1>
+	</header>
+	<section>
+		<article class='main'>
+			<hgroup>
+				<h1>MovieMink.com/jscript/bingo</h1>
+				<h2>It's Bingo Time!</h2>
+			</hgroup>
+			<img src='bingo.png' alt='' class='clear'>
+			<section class='bingoCard'>
+				<h3>This is your new Bingo card. If you don't like it, just click Get New Card. Good luck!</h3>
+				<table id ='bingoTable' class='bingo'>
+					<thead class='hidden'>Bingo Card</thead>
+				</table>
+				<button onclick="makeBingo();">Get First Card</button>
+			</section>
+			
+		</article>
+	<footer>
+		<p>Bingo Card Created by David Moritz</p>
+		<p><a href='..'>Go back to the Projects</a></p>
+	</footer>
+	</section>
+</body>
+</html>

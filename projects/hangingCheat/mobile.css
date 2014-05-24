@@ -1,0 +1,379 @@
+var nLetters,
+	wordList = [],
+	trashCan = 0,
+	strikes = 0,
+	correctGuess = 0,
+	computerNotUsed = [],
+	computerGuessWord = {},
+	docName = "",
+	notUsed = [],
+	Used = [],
+	fullList = [],
+	stillGuessing = true,
+	createWordArray = [],
+	constantArray = [],
+	percen = {},
+	alphabet = "abcdefghijklmnopqrstuvwxyz",
+	alphaArray = alphabet.split(""),
+	vowels = "aeiou",
+	vowelArray = vowels.split(""),
+	ignoreKeys = [16, 37, 38, 39, 40], // shift, or arrows
+	specialKeys = [8, 46]; // backspace & delete
+	
+// Receive all the lists //
+if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+} else {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+	  
+for (var i = 4; i <= 8; i++) {
+	xmlhttp.open("GET", "_inc/list" + i + ".xml", false);
+	xmlhttp.send();
+	eval("xmlDoc" + i + " = xmlhttp.responseXML");
+	xmlhttp.open("GET", "_inc/common" + i + ".xml", false);
+	xmlhttp.send();
+	eval("xmlDocCommon" + i + " = xmlhttp.responseXML");
+}
+
+function enableInput(n) {
+	for (var i = 1; i <= n; i++) {
+		document.getElementsByName("letter" + i)[0].removeAttribute('disabled');
+	}
+	for (var i = 8; i > n; i--) {
+		document.getElementsByName("letter" + i)[0].setAttribute('disabled', 'disabled');
+	}
+	nLetters = n
+}
+
+function testThis(word, bool) {
+	var wordArray = word.split(""),
+		n;
+	for (var j = 0; j < wordArray.length; j++){
+		if (bool == 1) {
+			n = eval("document.forms.hangingCheatForm.letter" + (j + 1) + ".value");
+		} else {
+			computerGuessWord[j] ? n = computerGuessWord[j] : n = null;
+		}
+		alphaArray.indexOf(n) == -1 ? n = null : n = n;
+		if (n) {
+			if (wordArray[j] != n){
+				return false;
+			}
+		} else {
+			if (Used.indexOf(wordArray[j]) == -1) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+function assembleLetters(bool) {
+	notUsed = [];
+	Used = [];
+	if (bool == 1) {
+		var n = document.forms.hangingCheatForm.notUsed.value ? document.forms.hangingCheatForm.notUsed.value : ".",
+			newArray = n.split(""),
+			y;
+			
+		for (var j = 1; j <= nLetters; j++){
+			y = eval("document.forms.hangingCheatForm.letter" + j + ".value");
+			newArray.push(y);
+		}
+			
+	} else {
+		newArray = computerNotUsed;
+	}
+	for (var i = 0; i < 26; i++){
+		newArray.indexOf(alphaArray[i]) != -1 ? notUsed.push(alphaArray[i]) : Used.push(alphaArray[i])
+	}
+}
+
+function testResults() {
+	if (!nLetters) {
+		alert("You must provide a number of letters");
+		return false;
+	}	
+	document.getElementById("wordTable").innerHTML = "";
+	var	listChoice = document.forms.hangingCheatForm.full.checked ? "Common" : "";
+	wordList = [];
+	assembleLetters(1);
+	
+	
+console.log(xmlDoc4.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDocCommon4.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDoc5.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDocCommon6.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDoc6.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDocCommon7.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDoc7.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+console.log(xmlDocCommon8.getElementsByTagName("e")[1294].childNodes[0].nodeValue);
+	
+	
+	
+	docName = eval("xmlDoc" + listChoice + nLetters + ".getElementsByTagName('e')");
+	var n = docName.length;
+	for (var i = 0; i < n; i++)
+	  {
+	  	var check = docName[i].childNodes[0].nodeValue;
+	  	testThis(check, 1) ? wordList.push(check) : trashCan++;
+	  }	
+	makeWordList(wordList);
+}
+
+function createWord () {
+	var n = document.forms.hangingCheatForm.notUsed.value;
+	createWordArray = n.split("");
+	constantArray += createWordArray; // why wont this change?
+	document.getElementById("wordTable").innerHTML = "";
+	notUsed = [];
+	Used = [];
+	if (createWordArray.length < 4) {
+		alert("You must provide at least 4 letters");
+		return false;
+	}
+	var	listChoice = document.forms.hangingCheatForm.full.checked ? "common" : "list"; 
+	for (var l = 8; l >= 4; l--) {
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		//xmlhttp.open("GET", "_inc/list" + l + ".xml", false);  
+		xmlhttp.open("GET", "_inc/" + listChoice + l + ".xml", false);
+		xmlhttp.send();
+		xmlDoc = xmlhttp.responseXML;
+		fullList = xmlDoc.getElementsByTagName("e");
+		wordList = [];
+		for (var i = 0; i < fullList.length; i++)
+		  {
+		  	createWordArray = constantArray.split(",");
+		  	testCreate(fullList[i].textContent) ? wordList.push(fullList[i].textContent) : trashCan++;
+		  }		
+		makeWordList(wordList);
+    }
+}
+
+function testCreate(word) {
+	var wordArray = word.split("");
+	for (var j = 0; j < wordArray.length; j++){
+		if (createWordArray.indexOf(wordArray[j]) == -1) {
+			return false
+		} else {
+			createWordArray[createWordArray.indexOf(wordArray[j])] = "."
+		}
+	}
+	return true;
+}
+
+function makeWordList(wordArray) {
+	var wordTable = document.getElementById("wordTable");
+	
+	for (var i = 0; i < wordArray.length; i++) {
+		var tempTr = document.createElement("tr"),
+			tempTd = document.createElement("td"),
+			tempText = document.createTextNode(wordArray[i]);
+			
+		tempTd.appendChild(tempText);
+		tempTr.appendChild(tempTd);		
+		wordTable.appendChild(tempTr);
+	}
+	//checkProbability(wordArray);
+}
+
+function ruleOutPossibilities(bool) {
+	// 'wordList' is all the current results
+	var n = wordList.length
+		tempWordList = [];
+	assembleLetters(bool);
+	for (var i = 0; i < n; i++)
+	  {
+	  	testThis(wordList[i], bool) ? tempWordList.push(wordList[i]) : trashCan++;
+	  }		
+	document.getElementById("wordTable").innerHTML = "";
+	wordList = tempWordList;
+	makeWordList(wordList);
+}
+
+function checkProbability() {
+	var tempArray = [],
+		noDubbs = [];
+	percen = {};
+	for (var i = 0; i < wordList.length; i++) {
+		tempArray = wordList[i].split("");
+		noDubbs = [];
+		for (var j = 0; j < tempArray.length; j++) {
+			if (Used.indexOf(tempArray[j]) != -1) { 
+				noDubbs.indexOf(tempArray[j]) == -1 ? trashCan++ : percen[tempArray[j]]--;
+				percen[tempArray[j]] ? percen[tempArray[j]]++ : percen[tempArray[j]] = 1;
+				noDubbs.push(tempArray[j]);
+			}
+		}
+	}
+	var letterList = [];
+	for (var key in percen) {
+    	letterList.push([key, percen[key]])
+		letterList.sort(function(a, b) {return b[1] - a[1]}) 
+	}
+	for (i = 0; i < letterList.length; i++) {
+	//console.log(letterList[i][0] + " has a " + (Math.round(letterList[i][1] / wordList.length * 100)) + "% likelihood of being in the next word!");	
+	}
+	if(letterList[0][0]) {
+		return letterList[0][0];
+	} else {
+		
+	}
+}
+
+function guessLetter (letter, guessWordArray) {
+	console.log("Computer guesses " + letter);
+	if (guessWordArray.indexOf(letter) == -1) {
+		strikes--;
+		console.log("Misses with " + letter + " and is down to only " + strikes + " strikes left");
+	} else {
+		console.log("That is correct!");
+		for (var i = 0; i < guessWordArray.length; i++) {
+			if (guessWordArray[i] == letter) {
+				computerGuessWord[i] = letter;
+				correctGuess++
+			}
+		}
+	}
+	computerNotUsed.push(letter);
+	assembleLetters(2);
+	var tempWordList = [];
+	for (var i = 0; i < wordList.length; i++)
+	  {
+	  	testThis(wordList[i], 2) ? tempWordList.push(wordList[i]) : trashCan++;
+	  }	
+	wordList = tempWordList;
+}
+
+function computerAI (word) {
+	var guessWordArray = word.split(""),
+		firstGuess = "";
+	nLetters = guessWordArray.length;
+	strikes = (12 - nLetters);
+	computerNotUsed = [];
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	var	listChoice = document.forms.hangingCheatForm.full.checked ? "common" : "list";   
+	xmlhttp.open("GET", "_inc/list" + nLetters + ".xml", false);
+	xmlhttp.send();
+	xmlDoc = xmlhttp.responseXML;
+	wordList = [];
+	var n = xmlDoc.getElementsByTagName("e").length;
+	for (var i = 0; i < n; i++)
+	  {
+	  	wordList.push(xmlDoc.getElementsByTagName("e")[i].childNodes[0].nodeValue);
+	  }	
+	
+	for (var i = guessWordArray.length; i > -1; i--) {
+		if (vowelArray.indexOf(guessWordArray[i]) != -1) {
+			!firstGuess ? firstGuess = guessWordArray[i] : trashCan++;
+		}
+	}
+	guessLetter(firstGuess, guessWordArray);
+	while (strikes > 0 && correctGuess != nLetters) {
+		guessLetter(checkProbability(), guessWordArray);
+	}
+	if (strikes == 0) {
+		console.log("Computer missed it!")
+	} else {
+		console.log("Computer guessed " + word + " with " + strikes + " strikes left over!");
+	}
+}
+
+$("#mainLetters").keyup(function(e) {
+	if($.inArray(e.keyCode, ignoreKeys) === -1) {
+		//	do javascript stuff here for mainLetters
+		testResults();
+	}
+});
+
+$("#ruledOut").keyup(function(e) {
+	if($.inArray(e.keyCode, ignoreKeys) === -1) {
+		//	do javascript stuff here for ruledOut
+		if(!nLetters){
+			var n = document.forms.hangingCheatForm.notUsed.value ? document.forms.hangingCheatForm.notUsed.value : ".";
+			createWordArray = n.split("");
+			if (createWordArray.length > 3) {
+				createWord();
+			}
+		} else {
+			if($.inArray(e.keyCode, specialKeys) >= 0) {
+				testResults();
+			} else {
+				ruleOutPossibilities(1);
+			}
+		}
+	}
+});
+
+// function letterPercentage(word) {
+	// var letterArray = word.split("");
+	// for (var i = 0; i < alphaArray.lenth; i++) {
+		// for (var j = 0; j < nLetters; j++){
+			// var n = eval("document.forms.hangingCheatForm.letter" + (j + 1) + ".value");
+			// alphaArray.indexOf(n) == -1 ? n = null : n = n;
+		// }
+	// }	
+// }
+
+// $('#target').keyup(function() {
+			  // console.log("KeyUp was called")
+			  // alert('Handler for .keyup() called.');
+			// });
+			// $('#other').click(function() {
+			  // $('#target').keyup();
+			// });
+
+// var ignoreKeys = [8, 46, 16, 37, 38, 39, 40];	//	as long as the key being pressed is not backspace (8), delete (46), shift (16), or any arrow keys (37-40)...
+// $("#target").on("keyup", "input[name='textInput']", function(e) {
+// if($.inArray(e.keyCode, ignoreKeys) === -1) {
+// //	do javascript stuff here
+// alert("you did it!");
+// }
+// });
+
+// function testResults() {
+	// if (!nLetters) {
+		// alert("You must provide a number of letters");
+		// return false;
+	// }
+	// if (window.XMLHttpRequest)
+	  // {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  // xmlhttp=new XMLHttpRequest();
+	  // }
+	// else
+	  // {// code for IE6, IE5
+	  // xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  // }
+// 	
+	// document.getElementById("wordTable").innerHTML = "";
+	// var	listChoice = document.forms.hangingCheatForm.full.checked ? "common" : "list";   
+	// xmlhttp.open("GET", "_inc/" + listChoice + nLetters + ".xml", false);
+	// //xmlhttp.open("GET", "_inc/test.xml",false);     JUST FOR TESTING PURPOSES
+	// //xmlhttp.open("GET", "_inc/list" + nLetters + ".xml", false);
+	// xmlhttp.send();
+	// xmlDoc = xmlhttp.responseXML;
+	// wordList = [];
+	// assembleLetters(1);
+	// eval("var n = xmlDoc" + nLetters + ".getElementsByTagName('e').length");
+	// for (var i = 0; i < n; i++)
+	  // {
+	  	// var check = xmlDoc.getElementsByTagName("e")[i].childNodes[0].nodeValue;
+	  	// testThis(check, 1) ? wordList.push(check) : trashCan++;
+	  // }	
+	// makeWordList(wordList);
+// }

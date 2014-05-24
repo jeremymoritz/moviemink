@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='description' content="Time to Cheat at Hanging With Friends!">
+	<meta name='keywords' content='hanging, with, friends, david moritz, moritz, david'>
+	<title>Hanging with Cheaters!</title>
+	<link rel="stylesheet" href="hangingCheat.css" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto:900' rel='stylesheet' type='text/css'>
+	<!--<link rel="stylesheet" href="mobile.css" type="text/css" media="only screen and (max-width: 980px)" />
+	<!-- <link rel='stylesheet' type='text/css' href='hangingCheat.css' /> 
+	<!--[if lt IE 9]>
+		<script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script>
+		<script src='http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js'></script>
+	<![endif]-->
+</head>
+<body>
+	<div id='container'>
+	<header class='title'>
+		<img src='_img/title.png' alt='Hanging With Cheaters' title='Hanging with Cheaters!'>
+	</header>
+	<section id='content'>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+    	<span id='solveButton'><input type='image' src='_img/solve.png' /></span> &nbsp;&nbsp;&nbsp;&nbsp;<!--onclick='testResults(); return false' -->
+    	<span id='createButton'><input type='image' src='_img/create.png' /></span> &nbsp;&nbsp;&nbsp;&nbsp;<!--onclick='createWord(); return false' -->
+    	<span id='testButton'><input type="image" src='_img/test.png' /></span><!--onclick='startTest(); return false' -->
+		<div id='formContainer'>
+			<form name='solveForm' id='solveForm'>
+				<p>Number of Letters: &nbsp;&nbsp;
+					4<input type="radio" name="nLetters" value="4" onclick='enableInput(4);'/> &nbsp;&nbsp;
+			        5<input type="radio" name="nLetters" value="5" onclick='enableInput(5);'/> &nbsp;&nbsp;
+			        6<input type="radio" name="nLetters" value="6" onclick='enableInput(6);'/> &nbsp;&nbsp;
+			        7<input type="radio" name="nLetters" value="7" onclick='enableInput(7);'/> &nbsp;&nbsp;
+			        8<input type="radio" name="nLetters" value="8" onclick='enableInput(8);'/>
+			    </p>
+	        	<p id='mainLetters'>
+	        		Which letters do you know? 
+	        		<input type='text' maxlength="1" name='letter1' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter2' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter3' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter4' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter5' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter6' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter7' size='1' disabled/>
+	        		<input type='text' maxlength="1" name='letter8' size='1' disabled/>
+	        	</p>
+	        	<p>
+	        		Which letters are ruled out?
+	        		<input class='ruledOut' type='text' name='notUsed' placeholder='no commas or spaces' />
+	        	</p>
+	        	<p>
+	        		Common Words Only? <input type='checkbox' name='full' onclick='testResults();' />
+	        	</p>
+	        	<p id='percentage'>&nbsp;</p>
+				<div class='fixedImage'>		
+					<img src='_img/hangingGuy.png' alt='' class='rightImg'>
+				</div>
+				<table id='solveTable' class='wordTable' border='1'>&nbsp;
+				</table>
+			</form>
+			<form name='createForm' id='createForm'>
+	        	<p>
+	        		Which letters do we have to work with?
+	        		<input class='ruledOut' type='text' name='notUsed' placeholder='no commas or spaces' />
+	        	</p>
+	        	<p>
+	        		Common Words Only? <input type='checkbox' name='full' onclick='testResults();' />
+	        	</p>
+	        	<p id='computerMiss'>&nbsp;</p>
+				<div class='fixedImage'>		
+					<img src='_img/hangingGuy.png' alt='' class='rightImg'>
+				</div>
+	        	<table id='createTable' class='wordTable' border='1'>&nbsp;
+				</table>
+			</form>
+			<form name='testForm' id='testForm'>
+	        	<p>
+	        		You wish to test your word against the computerAI?<br>
+	        		Write the word here:
+	        		<input type='text' name='testAI' placeholder='no special characters' />
+	        	</p>
+	        	<p>
+	        		Common Words Only? <input type='checkbox' name='AIfull' /> (Less words for the AI to have to pick through)
+	        	</p>
+	        	<button onclick='startTest(); return false'>GO!</button>
+	        	<p id='nextGuessAI'>&nbsp;</p>
+				<div class='fixedImage'>		
+					<img src='_img/hangingGuy.png' alt='' class='rightImg'>
+				</div>
+				<table id='testTable' class='wordTable' border='1'>&nbsp;
+				</table>
+			</form>
+		</div>
+		<div class='compAI'>
+			<div class='strikeAI'>
+				<img id='emptyAI' src='_img/strikes/4_empty.png'>
+				<img id='strikesAI' src='_img/strikes/0_strikes.png'>
+			</div>
+			<div class='spaces'>
+				<img id='startAI' src='_img/strikes/0_start.png'>
+				<table id='correctGuessAI'>
+					<tbody>
+						<tr>
+							<td><img id='correctGuess0' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess1' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess2' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess3' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess4' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess5' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess6' src='_img/letters/undefined.png'></td>
+							<td><img id='correctGuess7' src='_img/letters/undefined.png'></td>
+						</tr>
+					</tbody>
+				</table>			
+			</div>
+			<div id='lettersAI'>
+				<table id='lettersTable'>
+				</table>
+			</div>
+		</div>
+		<footer>
+			<p>Hanging With Friends Cheat Created by David Moritz</p>
+			<p><a href='..'>Go back to the Projects</a></p>
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+			<script src='_inc/listArrays.js'></script>		
+			<script src='hangingCheat.js'></script>
+			<audio id='audio'>
+				<source src="_inc/long_beep.mp3">&nbsp;</source>
+			</audio>				
+		</footer>
+	</section>
+	</div>
+	<div id='toybox'>&nbsp;</div>
+</body>
+</html>

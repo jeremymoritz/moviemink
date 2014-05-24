@@ -1,0 +1,44 @@
+/***	Yahtzee stylesheet ***/
+
+/*html5 display rule (for older browsers to display these html5 tags as block level elements)*/
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {display:block}
+
+/* setting initial margins and paddings to zero for [almost] all elements (doesn't include form elements) */
+a, abbr, acronym, address, article, aside, b, blockquote, body, br, canvas, caption, dd, details, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, img, label, legend, li, link, menu, nav, ol, p, pre, section, small, span, strong, summary table, td, th, tr, u, ul {margin:0; padding:0; border:0}
+
+	/* Yahtzee styles */
+.yTitle {width:400px; margin:auto; text-align: center}
+b {font-size:200%; font-weight:bold}
+i {font-size:150%}
+em {font-size:130%}
+.score {font-size:120%; font-weight:bold; margin-right:1em}
+#scoreTable td, #scoreTable tr {
+	border:1px solid black;
+	padding:1em;
+}
+.scoreSheet td {
+	text-align: center;
+	width:50%;
+}
+#playerTable {
+	padding: 1.5em;
+}
+.playerPick {
+	padding: 2em;
+	list-style-type: none; 
+}
+#addPlayerForm {
+	margin-bottom: 15px;
+}
+
+	/* STYLE CLASSES (ALL PAGES) */
+.hide {display:none}
+.center {text-align:center}
+.clear {clear:both}
+.hidden {display:none} 
+.left {float:left}
+.right {float:right}
+.enlarge {cursor:pointer}
+.overlarge {display:none; position:absolute}
+.hider {float:right; clear:right}
+.hider:hover {cursor:pointer}
