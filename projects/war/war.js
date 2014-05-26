@@ -1,56 +1,63 @@
-Player = function makePlayer() {
-	this.name = arguments[0] ? arguments[0] : "John Doe";
-	this.deck = new Deck();
-/*
-	this.arena = false;
-	this.warCard = null;
-	this.getWarCard = function getWarCard() {
-		this.warCard = this.deck.shift();
-		this.warCard.owner = this;
-	}
-*/
-}
-	
-Card = function makeCard() {
-	this.allSuits = ["spades", "hearts", "diamonds", "clubs"];
-	this.allValues = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"];
-	this.owner = null;
-/*
-	this.createSuit = function createSuit() {
-		return this.allSuits[ Math.floor(Math.random() * 4) ];
-	}	
-	this.createValue = function createValue() {
-		return this.allValues[ Math.floor(Math.random() * 13) ];
-	}
-*/
-	this.suit = arguments[0] ? arguments[0] : null;
-	this.value = arguments[1] ? arguments[1] : null;
-	this.strength = this.allValues.indexOf(this.value);
+function Player(playerName) {
+	var self = this;
+
+	self.name = playerName || "John Doe";
+	self.pile = new Pile();
 }
 
-Battle = function makeBattle() {
-	this.spoils = new Deck();
-	this.active = new Deck();
-	this.fight = function fight(players) {
-		players.forEach(function forEachPlayer(eachPlayer) {
-			if(eachPlayer.deck.cards.length) return;
-			this.active.cards.push( eachPlayer.deck.giveCard() );
-		});
-		this.winner = this.active.cards.sortStrong();
+function Card(cardValue, cardSuit) {
+	var self = this;
+
+	self.owner = null;
+	self.value = cardValue;
+	self.suit = cardSuit;
+}
+
+function Battle() {
+	var self = this;
+
+	self.allSuits = ["spades", "hearts", "diamonds", "clubs"];
+	self.allValues = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"];
+	self.spoils = new Pile();
+	self.active = new Pile();
+	self.fight = function fight(players) {
+		setTimeout(function log() {
+			console.log('Its been 3 seconds');
+		}, 3000);
+		// players.forEach(function forEachPlayer(eachPlayer) {
+		// 	if(eachPlayer.pile.cards.length) return;
+		// 	self.active.cards.push( eachPlayer.pile.giveCard() );
+		// });
+		// self.winner = self.active.cards.sortStrong();
+
+		for(var i = 0; i < 100000; i++) {
+			var a = 0;
+		}
+		console.log("slow");
 	}
-	
-	$s.spoils = function giveSpoils(winner) {
+	self.sortStrong = function sortStrong() {
+		self.cards.sort(function sortStrongest(a,b) {
+			if( a.strength < b.strength)
+				return 1;
+			if( a.strength > b.strength)
+				return -1;
+			return 0;
+		});
+		return self.cards[0];
+	}
+
+	self.spoils = function giveSpoils(winner) {
 		if(winner.arena === true) {
 			$s.war(winner);
 		} else {
 			$s.shuffle($s.inPlay);
 			$s.inPlay.forEach(function forEachCard(eachCard) {
-				winner.deck.push(eachCard);
+				winner.pile.push(eachCard);
 			});
 			$s.exitArena();
 		}
 	}
-	
+
 	$s.war = function war(winner) {
 		$s.allPlayers.forEach(function forEachPlayer(eachPlayer) {
 			if(eachPlayer.warCard === null) return;
@@ -58,112 +65,89 @@ Battle = function makeBattle() {
 				eachPlayer.warCard = null;
 				return;
 			}
-			if(eachPlayer.deck.length > 3) {
-				$s.inPlay.push( eachPlayer.deck.shift() );
-				$s.inPlay.push( eachPlayer.deck.shift() );
-				$s.inPlay.push( eachPlayer.deck.shift() );
+			if(eachPlayer.pile.length > 3) {
+				$s.inPlay.push( eachPlayer.pile.shift() );
+				$s.inPlay.push( eachPlayer.pile.shift() );
+				$s.inPlay.push( eachPlayer.pile.shift() );
 			} else {
-				for(var i = 1; i < eachPlayer.deck.length; i++) {
-					$s.inPlay.push( eachPlayer.deck.shift() );
+				for(var i = 1; i < eachPlayer.pile.length; i++) {
+					$s.inPlay.push( eachPlayer.pile.shift() );
 				}
 			}
-			eachPlayer.getWarCard(); 
+			eachPlayer.getWarCard();
 			eachPlayer.arena = false;
 		});
 		$s.attack();
 	}
-	
+
 	$s.exitArena = function exitArena() {
 		$s.allPlayers.forEach(function forEachPlayer(eachPlayer) {
 			eachPlayer.arena = false;
 			eachPlayer.warCard = null;
 		});
 	}
-}
 
-Deck = function makeDeck() {
-	this.cards = [];
-	this.shuffle = function shuffle() {
-		var len = this.cards.length;
-		var i = len;
-		 while (i--) {
-		 	var p = parseInt(Math.random()*len);
-			var t = this.cards[i];
-	  		this.cards[i] = this.cards[p];
-		  	this.cards[p] = t;
-	 	}
-	}
-	this.sortStrong = function sortStrong() {
-		this.cards.sort(function sortStrongest(a,b) {
-			if( a.strength < b.strength)
-				return 1;
-			if( a.strength > b.strength)
-				return -1;
-			return 0;
-		});
-		return this.cards[0];
-	}
-	this.giveCard = function giveCard() {
-		if(this.cards.length) {
-			return this.cards.shift();
+
+	self.giveCard = function giveCard() {
+		if(self.cards.length) {
+			return self.cards.shift();
 		}
 	}
-	this.build = function buildDeck() {	
-		this.cards = [];
-		var buildCard = new Card();
-		buildCard.allSuits.forEach( function forEachSuit(eachSuit) {
-			buildCard.allValues.forEach( function forEachValue(eachValue) {
-				this.cards.push( new Card(eachSuit, eachValue));
+}
+
+function Pile() {
+	var self = this;
+
+	self.cards = [];
+	self.allSuits = ["spades", "hearts", "diamonds", "clubs"];
+	self.allValues = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"];
+	self.shuffle = function shuffle() {
+		self.cards = _.shuffle(self.cards);
+	}
+	self.buildDeck = function buildDeck() {
+		self.cards = [];
+		self.allSuits.forEach( function forEachSuit(eachSuit) {
+			self.allValues.forEach( function forEachValue(eachValue) {
+				self.cards.push( new Card(eachSuit, eachValue));
 			});
 		});
-		this.shuffle();
-	}	
-	this.deal = function deal(players) {
-		this.cards.forEach( function DealToPlayers(card) {
-			players.sort(function smallestDeck(a,b) {
-			    if (a.deck.cards.length > b.deck.cards.length)
-			      return 1;
-			    if (a.deck.cards.length < b.deck.cards.length)
-			      return -1;
-			    // a must be equal to b
-			    return 0;
-			});
-			card.owner = players[0];
-			players[0].deck.cards.push(card);
-		});
-		this.cards = [];
+		self.shuffle();
+	}
+
+	self.deal = function deal(players) {
+		var i = 0;
+		while (self.cards.length) {
+			var nthPlayer = (i++ % players.length);
+			players[nthPLayer].pile.cards.push(self.cards.shift());
+		}
 	}
 }
 
-function warCtrl($scope) {
+var war = angular.module('war',[]);
+
+war.controller('warCtrl', ['$scope', function($scope) {
 	$s = $scope;
-	$s.deck = new Deck();
 	$s.allPlayers = [];
 	$s.start = false;
-	$s.history = [];
+	$s.pastBattles = [];
+	$s.playerName = '';
 
-/*		 
-	$s.addCard = function addCard() {
-		$s.card =  new Card($s.cardSuit, $s.cardValue);
-		$s.cardSuit = "";
-		$s.cardValue = "";
-		$s.allCards.push($s.card);
-	}
-*/
-	
 	$s.buildDeck = function buildDeck() {
 		$s.start = true;
-		$s.deck.build();
-		$s.deck.deal($s.allPlayers);
+		var pile = new Pile();
+		pile.build();
+		pile.deal($s.allPlayers);
 	}
-	
+
 	$s.addPlayer = function addPlayer() {
 		$s.allPlayers.push( new Player($s.playerName) );
-		$s.playerName = "";
+		$s.playerName = '';
 	}
-	
+
 	$s.play = function playCards() {
 		var battle = new Battle();
-		$s.history.push( battle.fight($s.allPlayers));
+		battle.fight($s.allPlayers);
+		$s.pastBattles.push( battle );
+		console.log("quick");
 	}
-}
+}]);
